@@ -8,9 +8,8 @@ public class AppointmentBean {
 	private String patientID;
 	private Date appointmentDate;
 	private String appointmentTime;
-	
+
 	public String getAppointmentID() {
-		System.out.println("This is the first change");
 		return appointmentID;
 	}
 
