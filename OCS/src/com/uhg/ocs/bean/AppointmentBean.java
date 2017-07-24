@@ -10,6 +10,7 @@ public class AppointmentBean {
 	private String appointmentTime;
 
 	public String getAppointmentID() {
+		System.out.println("This is the first change.");
 		return appointmentID;
 	}
 
