@@ -7,10 +7,18 @@ import java.util.Map;
 import com.uhg.ocs.bean.AppointmentBean;
 import com.uhg.ocs.bean.DoctorBean;
 import com.uhg.ocs.bean.PatientBean;
+import com.uhg.ocs.dao.DoctorDAO;
 
 public class Administrator {
-	public String addDoctor(DoctorBean doctorBean) {
-		return null;
+	public static String addDoctor(DoctorBean doctorBean) throws Exception {
+		String status;
+		if(DoctorDAO.insert(doctorBean)>0){
+			status = "SUCCESS";
+		}
+		else{
+			status = "FAILED";
+		}
+		return status;
 	}
 
 	public Boolean modifyDoctor(DoctorBean doctorBean) {
