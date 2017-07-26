@@ -1,6 +1,9 @@
 package com.uhg.ocs.bean;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class PatientBean {
 	private String patientID;
@@ -30,8 +33,22 @@ public class PatientBean {
 		return appointmentDate;
 	}
 
-	public void setAppointmentDate(Date appointmentDate) {
-		this.appointmentDate = appointmentDate;
+	@SuppressWarnings("deprecation")
+	public void setAppointmentDate(String appointmentDate){
+//		 DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); 
+//		 this.appointmentDate =(Date) df.parse(appointmentDate);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		 try {
+		 	java.util.Date d= dateFormat.parse(appointmentDate);
+		 	int month = d.getMonth();
+		 	int year = d.getYear();
+		 	int day = d.getDate();
+		 	java.sql.Date sqld = new java.sql.Date(year,month,day);
+		 	this.appointmentDate = sqld;
+		 	System.out.println("sql date:"+sqld);
+		 } catch (ParseException e) {
+		 	
+		 } 
 	}
 
 	public String getAilmentType() {
