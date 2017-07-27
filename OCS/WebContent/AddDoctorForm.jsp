@@ -20,7 +20,7 @@
 			<div class="col-sm-3"></div>
 			<div class="col-sm-5"><jsp:getProperty property="userID"
 					name="user" /></div>
-			<div class="col-sm-2">Home</div>
+			<div class="col-sm-2"><a href="AdminHome.jsp">Home</a></div>
 			<div class="col-sm-2">Logout</div>
 		</div>
 	</div>

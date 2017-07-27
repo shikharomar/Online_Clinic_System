@@ -2,6 +2,9 @@ package com.uhg.ocs.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.uhg.ocs.bean.DoctorBean;
 import com.uhg.ocs.util.DBUtil;
@@ -35,6 +38,25 @@ public class DoctorDAO {
 			e1.printStackTrace();
 		}
 		return status;
+	}
+	
+	public static ArrayList<DoctorBean> fetchAllDoctors(){
+		ArrayList<DoctorBean> dbal = new ArrayList<>();
+		try{
+			Connection con = DBUtil.getDBConnection();
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM OCS_TBL_DOCTOR");
+			while(rs.next()){
+				DoctorBean db = new DoctorBean(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15));
+				dbal.add(db);
+			}
+			st.close();
+			con.close();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return dbal;
 	}
 	
 }

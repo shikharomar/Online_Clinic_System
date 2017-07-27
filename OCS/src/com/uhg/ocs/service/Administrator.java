@@ -26,8 +26,8 @@ public class Administrator {
 
 	}
 
-	public ArrayList<DoctorBean> viewAllDoctors() {
-		return null;
+	public static ArrayList<DoctorBean> viewAllDoctors() {
+		return DoctorDAO.fetchAllDoctors();
 
 	}
 
