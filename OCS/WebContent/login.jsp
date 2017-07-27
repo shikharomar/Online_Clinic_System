@@ -13,7 +13,7 @@
 
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
-	<jsp:setProperty property="*" name="user" />
+	<jsp:setProperty property="*" name="user"/>
 
 	<%
 		if(Authentication.authorise(user.getUserID()) == "yes"){
