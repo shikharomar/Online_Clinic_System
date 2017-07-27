@@ -20,9 +20,10 @@ public class Administrator {
 		}
 		return status;
 	}
-
-	public Boolean modifyDoctor(DoctorBean doctorBean) {
-		return null;
+	
+	public static Boolean modifyDoctor(DoctorBean doctorBean) {
+		
+		return DoctorDAO.updateDocDetails(doctorBean);
 
 	}
 

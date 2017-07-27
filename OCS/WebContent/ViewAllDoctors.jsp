@@ -11,8 +11,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Doctors</title>
 <link rel="stylesheet" href="style.css">
+<title>All Doctors</title>
 </head>
 <body>
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
@@ -39,7 +39,7 @@
 
 		<div class="col-sm-10">
 			<div class="container">
-				<h4>List of all doctors in the system</h4>
+				<h3>List of all doctors in the system</h3>
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
@@ -63,9 +63,9 @@
 							<td><%=db.getContactNumber()%></td>
 							<td><%=db.getEmailID()%></td>
 							<td><a
-								href="EditDoctorDetails.jsp/?doctorID=<%=db.getDoctorID()%>">edit</a></td>
-							<td><a href="RemoveDoctor.jsp/?doctorID="
-								<%=db.getDoctorID()%>>remove</a></td>
+								href="EditDoctorDetails.jsp?doctorID=<%=db.getDoctorID()%>">edit</a></td>
+							<td><a
+								href="RemoveDoctor.jsp?doctorID=<%=db.getDoctorID()%>">remove</a></td>
 						</tr>
 						<%
 							}

@@ -1,17 +1,18 @@
+<%@page import="com.uhg.ocs.dao.DoctorDAO"%>
+<%@page import="com.uhg.ocs.bean.DoctorBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="HeadFootMaster.html"%>
 <%@ include file="AdminMaster.html"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Doctor Page</title>
+<title>Update Doctor details</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
 
@@ -26,17 +27,23 @@
 			<div class="col-sm-2">Logout</div>
 		</div>
 	</div>
-
+	
+	<%
+		String doctorID = request.getParameter("doctorID");
+		DoctorBean db = DoctorDAO.getDoctor(doctorID);
+	%>
+	
 	<div>
-		<h3 style="text-align: center;">Register a Doctor</h3>
-		<form action="AddDoctor.jsp" method="post">
+		<h3 style="text-align: center;">Edit Doctor details</h3>
+		<form action="ModifyDoctor.jsp" method="post">
+			<input type="hidden" name="doctorID" value="<%=db.getDoctorID()%>">
 			<div class="row">
 				<div class="col-sm-4 alr">
 					<label class="control-label">Doctor Name</label>
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="doctorName"
-						placeholder="Name of the Doctor">
+						placeholder="Name of the Doctor" value="<%=db.getDoctorName()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -45,7 +52,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="date" class="form-control" name="stringDateOfBirth"
-						placeholder="Date of Birth">
+						placeholder="Date of Birth" value="<%=db.getDateOfBirth()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -54,7 +61,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="date" class="form-control" name="stringDateOfJoining"
-						placeholder="Date of Joining">
+						placeholder="Date of Joining" value="<%=db.getDateOfJoining()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -63,7 +70,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="gender"
-						placeholder="Male/Female">
+						placeholder="Male/Female" value="<%=db.getGender()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -72,7 +79,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="qualification"
-						placeholder="Qualification">
+						placeholder="Qualification" value="<%=db.getQualification()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -81,7 +88,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="specialization"
-						placeholder="Specification">
+						placeholder="Specification" value="<%=db.getSpecialization()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -90,7 +97,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="number" class="form-control" name="yearsOfExperience"
-						placeholder="Years of Experience">
+						placeholder="Years of Experience" value="<%=db.getYearsOfExperience()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -99,7 +106,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="street"
-						placeholder="Street">
+						placeholder="Street" value="<%=db.getStreet()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -108,7 +115,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="location"
-						placeholder="Location">
+						placeholder="Location" value="<%=db.getLocation()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -117,7 +124,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="city"
-						placeholder="City">
+						placeholder="City" value="<%=db.getCity()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -126,7 +133,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="state"
-						placeholder="State">
+						placeholder="State" value="<%=db.getState()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -135,7 +142,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="pincode"
-						placeholder="Pincode">
+						placeholder="Pincode" value="<%=db.getPincode()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -144,7 +151,7 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="contactNumber"
-						placeholder="Contact Number">
+						placeholder="Contact Number" value="<%=db.getContactNumber()%>">
 				</div>
 			</div>
 			<div class="row">
@@ -153,17 +160,16 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="email" class="form-control" name="emailID"
-						placeholder="Email ID">
+						placeholder="Email ID" value="<%=db.getEmailID()%>">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4"></div>
 				<div class="col-sm-1">
-					<input type="submit" value="Add!" class="btn btn-info">
+					<input type="submit" value="Update" class="btn btn-info">
 				</div>
 				<div class="col-sm-1">
-					<button type="button" id="adminCancelButton"
-						class="btn btn-warning">cancel</button>
+					<button type="button" id="adminCancelButton" class="btn btn-warning">cancel</button>
 				</div>
 			</div>
 		</form>

@@ -16,7 +16,6 @@
 	
 	<%
 		String status = Administrator.addDoctor(DocBean);
-		
 		out.println("Adding Doctor :"+status);
 	%>
 	
