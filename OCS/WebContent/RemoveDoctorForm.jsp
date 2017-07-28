@@ -15,7 +15,11 @@
 <body>
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
-
+	<%
+		if (user.getUserID() == null) {
+			response.sendRedirect("ErrorPage.jsp");
+		}
+	%>
 	<div class="container-fluid" style="background-color: #D3D3D3;">
 		<div class="row">
 			<div class="col-sm-3"></div>
@@ -24,7 +28,9 @@
 			<div class="col-sm-2">
 				<a href="AdminHome.jsp">Home</a>
 			</div>
-			<div class="col-sm-2"><a href="logout.jsp">Logout</a></div>
+			<div class="col-sm-2">
+				<a href="logout.jsp">Logout</a>
+			</div>
 		</div>
 	</div>
 
@@ -32,7 +38,7 @@
 		String doctorID = request.getParameter("doctorID");
 		DoctorBean db = DoctorDAO.getDoctor(doctorID);
 	%>
-	
+
 	<div>
 		<h3 style="text-align: center;">Remove Doctor from system</h3>
 		<form action="RemoveDoctor.jsp" method="post">
@@ -43,7 +49,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="doctorName"
-						placeholder="Name of the Doctor" value="<%=db.getDoctorName()%>" readonly="readonly">
+						placeholder="Name of the Doctor" value="<%=db.getDoctorName()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -52,7 +59,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="date" class="form-control" name="stringDateOfBirth"
-						placeholder="Date of Birth" value="<%=db.getDateOfBirth()%>" readonly="readonly">
+						placeholder="Date of Birth" value="<%=db.getDateOfBirth()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -61,7 +69,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="date" class="form-control" name="stringDateOfJoining"
-						placeholder="Date of Joining" value="<%=db.getDateOfJoining()%>" readonly="readonly">
+						placeholder="Date of Joining" value="<%=db.getDateOfJoining()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -70,7 +79,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="gender"
-						placeholder="Male/Female" value="<%=db.getGender()%>" readonly="readonly">
+						placeholder="Male/Female" value="<%=db.getGender()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -79,7 +89,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="qualification"
-						placeholder="Qualification" value="<%=db.getQualification()%>" readonly="readonly">
+						placeholder="Qualification" value="<%=db.getQualification()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -88,7 +99,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="specialization"
-						placeholder="Specification" value="<%=db.getSpecialization()%>" readonly="readonly">
+						placeholder="Specification" value="<%=db.getSpecialization()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -97,7 +109,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="number" class="form-control" name="yearsOfExperience"
-						placeholder="Years of Experience" value="<%=db.getYearsOfExperience()%>" readonly="readonly">
+						placeholder="Years of Experience"
+						value="<%=db.getYearsOfExperience()%>" readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -106,7 +119,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="street"
-						placeholder="Street" value="<%=db.getStreet()%>" readonly="readonly">
+						placeholder="Street" value="<%=db.getStreet()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -115,7 +129,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="location"
-						placeholder="Location" value="<%=db.getLocation()%>" readonly="readonly">
+						placeholder="Location" value="<%=db.getLocation()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -142,7 +157,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="pincode"
-						placeholder="Pincode" value="<%=db.getPincode()%>" readonly="readonly">
+						placeholder="Pincode" value="<%=db.getPincode()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -151,7 +167,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="contactNumber"
-						placeholder="Contact Number" value="<%=db.getContactNumber()%>" readonly="readonly">
+						placeholder="Contact Number" value="<%=db.getContactNumber()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -160,7 +177,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="email" class="form-control" name="emailID"
-						placeholder="Email ID" value="<%=db.getEmailID()%>" readonly="readonly">
+						placeholder="Email ID" value="<%=db.getEmailID()%>"
+						readonly="readonly">
 				</div>
 			</div>
 			<div class="row">
@@ -169,7 +187,8 @@
 					<input type="submit" value="Delete!" class="btn btn-danger">
 				</div>
 				<div class="col-sm-1">
-					<button type="button" id="adminCancelButton" class="btn btn-warning">cancel</button>
+					<button type="button" id="adminCancelButton"
+						class="btn btn-warning">cancel</button>
 				</div>
 			</div>
 		</form>

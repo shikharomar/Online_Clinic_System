@@ -57,4 +57,28 @@ public class UserCredentialsDAO {
 		}
 		return status;
 	}
+	
+	public static String createUserCredentials(String username, String pwd){
+		String userID = null;
+		try {
+			Connection con = DBUtil.getDBConnection();
+			PreparedStatement ps = con.prepareStatement("INSERT INTO OCS_TBL_USER_CREDENTIALS (PASSWORD, USERTYPE, LOGINSTATUS, USERNAME) VALUES (?, ?, ?, ?)");
+			ps.setString(1, pwd);
+			ps.setString(2, "P");
+			ps.setInt(3, 0);
+			ps.setString(4, username);
+			ps.executeUpdate();
+			PreparedStatement ps1 = con.prepareStatement("SELECT * FROM OCS_TBL_USER_CREDENTIALS WHERE USERNAME = ? AND PASSWORD = ?");
+			ps1.setString(1, username);
+			ps1.setString(2, pwd);
+			ResultSet rs = ps1.executeQuery();
+			if(rs.next())
+				userID = rs.getString(1);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return userID;
+	}
+	
 }

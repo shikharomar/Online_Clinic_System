@@ -1,11 +1,14 @@
 package com.uhg.ocs.bean;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class ProfileBean {
 	private String userID;
 	private String firstName;
 	private String lastName;
+	private String stringDateOfBirth;
 	private Date dateOfBirth;
 	private String gender;
 	private String street;
@@ -39,6 +42,25 @@ public class ProfileBean {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getStringDateOfBirth() {
+		return stringDateOfBirth;
+	}
+
+	public void setStringDateOfBirth(String stringDateOfBirth) {
+		this.stringDateOfBirth = stringDateOfBirth;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			java.util.Date d = dateFormat.parse(stringDateOfBirth);
+			int month = d.getMonth();
+			int year = d.getYear();
+			int day = d.getDate();
+			java.sql.Date sqld = new java.sql.Date(year, month, day);
+			setDateOfBirth(sqld);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Date getDateOfBirth() {

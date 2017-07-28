@@ -1,48 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="HeadFootMaster.html"%>
-<%@ include file="AdminMaster.html"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Doctor Page</title>
+<title>Sign up for OCS</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
-		scope="session"></jsp:useBean>
-	<%
-		if (user.getUserID() == null) {
-			response.sendRedirect("ErrorPage.jsp");
-		}
-	%>
-	<div class="container-fluid" style="background-color: #D3D3D3;">
+	<div class="container-fluid" style="background-color: #ffc14d;">
 		<div class="row">
-			<div class="col-sm-3"></div>
-			<div class="col-sm-5"><jsp:getProperty property="userID"
-					name="user" /></div>
-			<div class="col-sm-2">
-				<a href="AdminHome.jsp">Home</a>
-			</div>
-			<div class="col-sm-2">
-				<a href="logout.jsp">Logout</a>
-			</div>
+			<div class="col-sm-8"></div>
+			<div class="col-sm-2">About us</div>
+			<div class="col-sm-2">Contact us</div>
 		</div>
 	</div>
-
 	<div>
-		<h3 style="text-align: center;">Register a Doctor</h3>
-		<form action="AddDoctor.jsp" method="post">
+		<h3 style="text-align: center;">Customer/Patient Registration</h3>
+		<form action="Register.jsp" method="post">
 			<div class="row">
 				<div class="col-sm-4 alr">
-					<label class="control-label">Doctor Name</label>
+					<label class="control-label">First Name</label>
 				</div>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" name="doctorName"
-						placeholder="Name of the Doctor">
+					<input type="text" class="form-control" name="firstName"
+						placeholder="First Name">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4 alr">
+					<label class="control-label">Last Name</label>
+				</div>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" name="lastName"
+						placeholder="Last Name">
 				</div>
 			</div>
 			<div class="row">
@@ -56,47 +48,11 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-4 alr">
-					<label class="control-label">Date of Joining</label>
-				</div>
-				<div class="col-sm-6">
-					<input type="date" class="form-control" name="stringDateOfJoining"
-						placeholder="Date of Joining">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4 alr">
 					<label class="control-label">Gender</label>
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="gender"
-						placeholder="Male/Female">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4 alr">
-					<label class="control-label">Qualification</label>
-				</div>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" name="qualification"
-						placeholder="Qualification">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4 alr">
-					<label class="control-label">Specification</label>
-				</div>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" name="specialization"
-						placeholder="Specification">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4 alr">
-					<label class="control-label">Years of Experience</label>
-				</div>
-				<div class="col-sm-6">
-					<input type="number" class="form-control" name="yearsOfExperience"
-						placeholder="Years of Experience">
+						placeholder="Gender">
 				</div>
 			</div>
 			<div class="row">
@@ -149,34 +105,43 @@
 					<label class="control-label">Contact Number</label>
 				</div>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" name="contactNumber"
+					<input type="text" class="form-control" name="mobileNo"
 						placeholder="Contact Number">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4 alr">
-					<label class="control-label">Email ID</label>
+					<label class="control-label">Email Address</label>
 				</div>
 				<div class="col-sm-6">
-					<input type="email" class="form-control" name="emailID"
-						placeholder="Email ID">
+					<input type="text" class="form-control" name="emailID"
+						placeholder="Email Address">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4 alr">
+					<label class="control-label">Password</label>
+				</div>
+				<div class="col-sm-6">
+					<input type="password" class="form-control" name="password"
+						placeholder="Password">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4"></div>
 				<div class="col-sm-1">
-					<input type="submit" value="Add!" class="btn btn-info">
+					<input type="submit" value="Signup" class="btn btn-warning">
 				</div>
 				<div class="col-sm-1">
 					<button type="button" id="adminCancelButton"
-						class="btn btn-warning">cancel</button>
+						class="btn btn-default">cancel</button>
 				</div>
 			</div>
 		</form>
 	</div>
 	<script>
 		$("#adminCancelButton").click(function() {
-			document.location.href = 'http://localhost:8082/OCS/AdminHome.jsp';
+			document.location.href = 'http://localhost:8082/OCS/OCSHome.jsp';
 		});
 	</script>
 </body>

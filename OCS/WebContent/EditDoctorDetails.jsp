@@ -15,7 +15,11 @@
 <body>
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
-
+	<%
+		if (user.getUserID() == null) {
+			response.sendRedirect("ErrorPage.jsp");
+		}
+	%>
 	<div class="container-fluid" style="background-color: #D3D3D3;">
 		<div class="row">
 			<div class="col-sm-3"></div>
