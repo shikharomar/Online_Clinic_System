@@ -12,28 +12,31 @@ import com.uhg.ocs.dao.DoctorDAO;
 public class Administrator {
 	public static String addDoctor(DoctorBean doctorBean) throws Exception {
 		String status;
-		if(DoctorDAO.insert(doctorBean)>0){
+		if (DoctorDAO.insert(doctorBean) > 0) {
 			status = "SUCCESS";
-		}
-		else{
+		} else {
 			status = "FAILED";
 		}
 		return status;
 	}
-	
+
 	public static Boolean modifyDoctor(DoctorBean doctorBean) {
-		
+
 		return DoctorDAO.updateDocDetails(doctorBean);
 
 	}
 
 	public static ArrayList<DoctorBean> viewAllDoctors() {
+		
 		return DoctorDAO.fetchAllDoctors();
 
 	}
 
-	public int removeDoctor(String doctorID) {
-		return 0;
+	public static int removeDoctor(String doctorID) {
+		int result = 0;
+		if(DoctorDAO.removeDoctor(doctorID))
+			result = 1;
+		return result;
 
 	}
 

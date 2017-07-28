@@ -17,7 +17,7 @@
 
 	<%
 		if(Authentication.authorise(user.getUserID()) == "yes"){
-			if(Authentication.authenticate(user)){
+			if(Authentication.authenticate(user) && Authentication.changeLoginStatus(user, 1)){
 				String userType = User.login(user);
 				if(userType.equals("A")){
 					out.println("redirecting to Admin homepage");
@@ -27,13 +27,13 @@
 					out.println("redirecting to Reporter homepage");
 					response.sendRedirect("ReporterHome.jsp");
 				}
-				else if(userType.equals("p")){
+				else if(userType.equals("P")){
 					out.println("redirecting to Patient homepage");
 					response.sendRedirect("PatientHome.jsp");
 				}
 				else{
 					out.println("redirecting to Errorpage");
-					response.sendRedirect("Error.jsp");
+					response.sendRedirect("ErrorPage.jsp");
 				}
 			}
 		}

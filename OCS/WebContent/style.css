@@ -11,6 +11,11 @@ body {
 	text-align: right;
 }
 
+.orange{
+	background-color: #ffa500;
+	color: white;
+}
+
 .lp {
 	padding-top: 70px;
 	position: absolute;

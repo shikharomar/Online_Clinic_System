@@ -25,6 +25,13 @@ public class Authentication {
 		}
 		else
 			return false;
-		
+	}
+	
+	public static Boolean changeLoginStatus(CredentialsBean user, int loginStatus){
+		Boolean status = Boolean.FALSE;
+		user.setLoginStatus(loginStatus);
+		if(UserCredentialsDAO.updateLoginStatus(user))
+			status = Boolean.TRUE;
+		return status;
 	}
 }

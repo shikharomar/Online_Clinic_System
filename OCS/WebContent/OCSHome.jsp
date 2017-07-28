@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="container-fluid" style="background-color: #D3D3D3;">
+	<div class="container-fluid" style="background-color: #ffc14d;">
 		<div class="row">
 			<div class="col-sm-8"></div>
 			<div class="col-sm-2">About us</div>

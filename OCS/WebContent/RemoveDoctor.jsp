@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modifying details......</title>
+<title>Removing doctor......</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -29,16 +29,13 @@
 	</div>
 
 
-	<jsp:useBean id="upDocBean" class="com.uhg.ocs.bean.DoctorBean"></jsp:useBean>
-	<jsp:setProperty property="*" name="upDocBean" />
-
 	<div class="row">
 		<div class="col-sm-5 col-sm-offset-2">
 			<%
-				if (Administrator.modifyDoctor(upDocBean)) {
-					out.println("<h4>Updated doctor details</h4>");
+				if (Administrator.removeDoctor(request.getParameter("doctorID"))>0) {
+					out.println("<h4>Removed doctor details</h4>");
 				} else {
-					out.println("<h4>cannot Update doctor details</h4>");
+					out.println("<h4>cannot remove doctor details</h4>");
 				}
 			%>
 		</div>

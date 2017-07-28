@@ -26,7 +26,7 @@
 			<div class="col-sm-2">
 				<a href="AdminHome.jsp">Home</a>
 			</div>
-			<div class="col-sm-2">Logout</div>
+			<div class="col-sm-2"><a href="logout.jsp">Logout</a></div>
 		</div>
 	</div>
 
@@ -65,7 +65,7 @@
 							<td><a
 								href="EditDoctorDetails.jsp?doctorID=<%=db.getDoctorID()%>">edit</a></td>
 							<td><a
-								href="RemoveDoctor.jsp?doctorID=<%=db.getDoctorID()%>">remove</a></td>
+								href="RemoveDoctorForm.jsp?doctorID=<%=db.getDoctorID()%>">remove</a></td>
 						</tr>
 						<%
 							}

@@ -54,6 +54,7 @@ public class DoctorDAO {
 			ps.setString(14, db.getEmailID());
 			status = ps.executeUpdate();
 			ps.close();
+			con.close();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -85,6 +86,7 @@ public class DoctorDAO {
 			if(ps.executeUpdate()>0)
 				status = Boolean.TRUE;
 			ps.close();
+			con.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -92,6 +94,26 @@ public class DoctorDAO {
 		return status;
 	}
 
+	public static Boolean removeDoctor(String doctorID){
+		Boolean status = Boolean.FALSE;
+		try {
+			Connection con = DBUtil.getDBConnection();
+			PreparedStatement ps = con.prepareStatement("DELETE FROM OCS_TBL_DOCTOR WHERE DOCTORID = ?");
+			ps.setString(1, doctorID);
+			if(ps.executeUpdate()>0){
+				status = Boolean.TRUE;
+			}
+			ps.close();
+			con.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	
 	public static ArrayList<DoctorBean> fetchAllDoctors() {
 		ArrayList<DoctorBean> dbal = new ArrayList<>();
 		try {

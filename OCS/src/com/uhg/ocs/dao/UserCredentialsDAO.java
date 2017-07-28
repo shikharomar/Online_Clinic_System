@@ -19,4 +19,42 @@ public class UserCredentialsDAO {
 		return cb;
 	}
 	
+	public static Boolean updateUserCredentials(CredentialsBean cb){
+		Boolean status = Boolean.FALSE;
+		try {
+			Connection con = DBUtil.getDBConnection();
+			PreparedStatement ps = con.prepareStatement("UPDATE OCS_TBL_USER_CREDENTIALS SET PASSWORD = ?, USERTYPE = ?, LOGINSTATUS = ?, USERNAME = ? WHERE USERID = ?");
+			ps.setString(1, cb.getPassword());
+			ps.setString(2, cb.getUserType());
+			ps.setInt(3, cb.getLoginStatus());
+			ps.setString(4, cb.getUserName());
+			ps.setString(5, cb.getUserID());
+			if(ps.executeUpdate()>0)
+				status = Boolean.TRUE;
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	public static Boolean updateLoginStatus(CredentialsBean cb){
+		Boolean status = Boolean.FALSE;
+		try {
+			Connection con = DBUtil.getDBConnection();
+			PreparedStatement ps = con.prepareStatement("UPDATE OCS_TBL_USER_CREDENTIALS SET LOGINSTATUS = ? WHERE USERID = ?");
+			ps.setInt(1, cb.getLoginStatus());
+			ps.setString(2, cb.getUserID());
+			if(ps.executeUpdate()>0)
+				status = Boolean.TRUE;
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return status;
+	}
 }
