@@ -1,12 +1,16 @@
 package com.uhg.ocs.bean;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class LeaveBean {
 	private String reporterID;
 	private String reporterName;
 	private String doctorID;
+	private String stringLeaveFrom;
 	private Date leaveFrom;
+	private String stringLeaveTo;
 	private Date leaveTo;
 	private String reason;
 	private int status;
@@ -35,12 +39,50 @@ public class LeaveBean {
 		this.doctorID = doctorID;
 	}
 
+	public String getStringLeaveFrom() {
+		return stringLeaveFrom;
+	}
+
+	public void setStringLeaveFrom(String stringLeaveFrom) {
+		this.stringLeaveFrom = stringLeaveFrom;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			java.util.Date d = dateFormat.parse(stringLeaveFrom);
+			int month = d.getMonth();
+			int year = d.getYear();
+			int day = d.getDate();
+			java.sql.Date sqld = new java.sql.Date(year, month, day);
+			setLeaveFrom(sqld);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Date getLeaveFrom() {
 		return leaveFrom;
 	}
 
 	public void setLeaveFrom(Date leaveFrom) {
 		this.leaveFrom = leaveFrom;
+	}
+
+	public String getStringLeaveTo() {
+		return stringLeaveTo;
+	}
+
+	public void setStringLeaveTo(String stringLeaveTo) {
+		this.stringLeaveTo = stringLeaveTo;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			java.util.Date d = dateFormat.parse(stringLeaveTo);
+			int month = d.getMonth();
+			int year = d.getYear();
+			int day = d.getDate();
+			java.sql.Date sqld = new java.sql.Date(year, month, day);
+			setLeaveTo(sqld);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Date getLeaveTo() {

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 public class PatientBean {
 	private String patientID;
 	private String userID;
+	private String stringAppointmentDate;
 	private Date appointmentDate;
 	private String ailmentType;
 	private String ailmentDetails;
@@ -29,26 +30,31 @@ public class PatientBean {
 		this.userID = userID;
 	}
 
+	public String getStringAppointmentDate() {
+		return stringAppointmentDate;
+	}
+
+	public void setStringAppointmentDate(String stringAppointmentDate) {
+		this.stringAppointmentDate = stringAppointmentDate;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			java.util.Date d = dateFormat.parse(stringAppointmentDate);
+			int month = d.getMonth();
+			int year = d.getYear();
+			int day = d.getDate();
+			java.sql.Date sqld = new java.sql.Date(year, month, day);
+			setAppointmentDate(sqld);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Date getAppointmentDate() {
 		return appointmentDate;
 	}
 
-	@SuppressWarnings("deprecation")
-	public void setAppointmentDate(String appointmentDate){
-//		 DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); 
-//		 this.appointmentDate =(Date) df.parse(appointmentDate);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		 try {
-		 	java.util.Date d= dateFormat.parse(appointmentDate);
-		 	int month = d.getMonth();
-		 	int year = d.getYear();
-		 	int day = d.getDate();
-		 	java.sql.Date sqld = new java.sql.Date(year,month,day);
-		 	this.appointmentDate = sqld;
-		 	System.out.println("sql date:"+sqld);
-		 } catch (ParseException e) {
-		 	
-		 } 
+	public void setAppointmentDate(Date appointmentDate) {
+		this.appointmentDate = appointmentDate;
 	}
 
 	public String getAilmentType() {

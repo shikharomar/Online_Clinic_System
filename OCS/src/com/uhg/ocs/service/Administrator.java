@@ -6,8 +6,12 @@ import java.util.Map;
 
 import com.uhg.ocs.bean.AppointmentBean;
 import com.uhg.ocs.bean.DoctorBean;
+import com.uhg.ocs.bean.LeaveBean;
 import com.uhg.ocs.bean.PatientBean;
+import com.uhg.ocs.dao.AppointmentsDAO;
 import com.uhg.ocs.dao.DoctorDAO;
+import com.uhg.ocs.dao.LeaveDAO;
+import com.uhg.ocs.dao.PatientDAO;
 
 public class Administrator {
 	public static String addDoctor(DoctorBean doctorBean) throws Exception {
@@ -39,10 +43,27 @@ public class Administrator {
 		return result;
 
 	}
-
-	public ArrayList<DoctorBean> suggestDoctors(String patientID, Date date) {
-		return null;
-
+	
+	public static ArrayList<LeaveBean> onLeaveDoctors(){
+		return LeaveDAO.viewLeaves();
+	}
+	
+	public static ArrayList<AppointmentBean> getPatients(LeaveBean lb){
+		return AppointmentsDAO.getToBeIntPat(lb);
+	}
+	
+	public static ArrayList<DoctorBean> suggestDoctors(String patientID, java.sql.Date date) {
+		String ailmentType = PatientDAO.viewPatient(patientID).getAilmentType();
+		ArrayList<DoctorBean> dbl = new ArrayList<>();
+		ArrayList<String> docIDS = DoctorDAO.fetchAllDoctors(ailmentType);
+		for(String docID : docIDS) {
+			if(!LeaveDAO.checkLeave(docID, date)) {
+				DoctorBean db = DoctorDAO.getDoctor(docID);
+				dbl.add(db);
+				PatientDAO.updateHistory(patientID, db.getDoctorName());
+			}
+		}
+		return dbl;
 	}
 
 	public Map<PatientBean, AppointmentBean> viewPatientsByDate(Date appointmentDate) {

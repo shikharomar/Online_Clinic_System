@@ -135,4 +135,23 @@ public class DoctorDAO {
 		return dbal;
 	}
 
+	public static ArrayList<String> fetchAllDoctors(String ailmentType){
+		ArrayList<String> docIDS = new ArrayList<>();
+		try {
+			Connection con = DBUtil.getDBConnection();
+			PreparedStatement ps = con.prepareStatement("SELECT DOCTORID FROM OCS_TBL_DOCTOR WHERE SPECIALIZATION = ?");
+			ps.setString(1, ailmentType);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				docIDS.add(rs.getString(1));
+			}
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return docIDS;
+	}
+	
 }
