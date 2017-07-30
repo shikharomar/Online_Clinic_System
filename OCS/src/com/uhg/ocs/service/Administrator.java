@@ -66,6 +66,10 @@ public class Administrator {
 		return dbl;
 	}
 
+	public static ArrayList<AppointmentBean> getPendingAppointments(){
+		return AppointmentsDAO.viewPendingAppointments();
+	}
+	
 	public Map<PatientBean, AppointmentBean> viewPatientsByDate(Date appointmentDate) {
 		return null;
 

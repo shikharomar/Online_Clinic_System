@@ -84,7 +84,7 @@
 									doctors</a></td>
 						</tr>
 						<%
-							AppointmentsDAO.changeAppStatus(ab.getAppointmentID());
+							AppointmentsDAO.changeAppStatus(ab.getAppointmentID(), -1);
 							}
 						%>
 					</tbody>

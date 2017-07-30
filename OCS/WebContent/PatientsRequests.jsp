@@ -1,20 +1,24 @@
+<%@page import="com.uhg.ocs.dao.LeaveDAO"%>
 <%@page import="com.uhg.ocs.dao.DoctorDAO"%>
-<%@page import="com.uhg.ocs.bean.LeaveBean"%>
 <%@page import="com.uhg.ocs.bean.DoctorBean"%>
 <%@page import="com.uhg.ocs.service.Administrator"%>
-<%@page import="java.util.List"%>
+<%@page import="com.uhg.ocs.bean.AppointmentBean"%>
+<%@page import="com.uhg.ocs.bean.PatientBean" %>
+<%@page import="com.uhg.ocs.bean.ProfileBean" %>
+<%@page import="com.uhg.ocs.dao.UserProfileDAO"%>
+<%@page import="com.uhg.ocs.dao.PatientDAO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="HeadFootMaster.html"%>
 <%@ include file="AdminMaster.html"%>
-<%@page import="com.uhg.ocs.util.User"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
-<title>Suggest Doctors</title>
+<title>Patients Requests</title>
 </head>
 <body>
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
@@ -39,40 +43,46 @@
 	</div>
 
 	<%
-		List<LeaveBean> lbl = Administrator.onLeaveDoctors();
+		ArrayList<AppointmentBean> abl = Administrator.getPendingAppointments();
 	%>
 
 	<div class="row" style="padding-left: 140px;">
 
 		<div class="col-sm-10">
 			<div class="container">
-				<h3>List of all doctors who are on leave with appointments</h3>
+				<h3>Appointment requests from patients</h3>
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Specification</th>
-							<th>Contact number</th>
-							<th>Email Address</th>
-							<th>Leave from</th>
-							<th>Leave till</th>
-							<th>Cancel Appointment</th>
+							<th>Appointment Date</th>
+							<th>Patient Name</th>
+							<th>Doctor Name</th>
+							<th>Doctor status</th>
+							<th>Approve</th>
+							<th>Reject</th>
 						</tr>
 					</thead>
 					<tbody>
 						<%
-							for (LeaveBean lb : lbl) {
-								DoctorBean db = DoctorDAO.getDoctor(lb.getDoctorID());
+							String status;
+							for (AppointmentBean ab : abl) {
+								PatientBean pb = PatientDAO.viewPatient(ab.getPatientID());
+								ProfileBean prb = UserProfileDAO.getUserProfile(pb.getUserID());
+								DoctorBean db = DoctorDAO.getDoctor(ab.getDoctorID());
+								if(LeaveDAO.checkLeave(ab.getDoctorID(), ab.getAppointmentDate())){
+									status = "Not-available";
+								}
+								else{
+									status = "Available";
+								}
 						%>
 						<tr>
+							<td title="YYYY-MM-DD"><%=ab.getAppointmentDate()%></td>
+							<td><%=prb.getFirstName()%></td>
 							<td><%=db.getDoctorName()%></td>
-							<td><%=db.getSpecialization()%></td>
-							<td><%=db.getContactNumber()%></td>
-							<td><%=db.getEmailID()%></td>
-							<td title="YYYY-MM-DD"><%=lb.getLeaveFrom()%></td>
-							<td title="YYYY-MM-DD"><%=lb.getLeaveTo()%></td>
-							<td><a
-								href="IntimatePatients.jsp?doctorID=<%=db.getDoctorID()%>&stringLeaveFrom=<%=lb.getLeaveFrom()%>&stringLeaveTo=<%=lb.getLeaveTo()%>">cancel</a></td>
+							<td><%=status%></td>
+							<td><a href="ApproveAppointment.jsp?appointmentID=<%=ab.getAppointmentID()%>">approve</a></td>
+							<td><a href="RejectAppointment.jsp?appointmentID=<%=ab.getAppointmentID()%>">reject</a></td>
 						</tr>
 						<%
 							}
