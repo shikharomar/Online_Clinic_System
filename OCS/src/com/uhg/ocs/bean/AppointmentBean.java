@@ -11,6 +11,15 @@ public class AppointmentBean {
 	private String stringAppointmentDate;
 	private Date appointmentDate;
 	private String appointmentTime;
+	private int status;
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 	public String getAppointmentID() {
 		return appointmentID;
@@ -79,6 +88,17 @@ public class AppointmentBean {
 		this.patientID = patientID;
 		this.appointmentDate = appointmentDate;
 		this.appointmentTime = appointmentTime;
+	}
+
+	public AppointmentBean(String appointmentID, String doctorID, String patientID, Date appointmentDate,
+			String appointmentTime, int status) {
+		super();
+		this.appointmentID = appointmentID;
+		this.doctorID = doctorID;
+		this.patientID = patientID;
+		this.appointmentDate = appointmentDate;
+		this.appointmentTime = appointmentTime;
+		this.status = status;
 	}
 
 	public AppointmentBean() {

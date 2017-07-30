@@ -2,6 +2,7 @@ package com.uhg.ocs.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.uhg.ocs.bean.AppointmentBean;
@@ -70,8 +71,12 @@ public class Administrator {
 		return AppointmentsDAO.viewPendingAppointments();
 	}
 	
-	public Map<PatientBean, AppointmentBean> viewPatientsByDate(Date appointmentDate) {
-		return null;
-
+	public static Map<PatientBean, AppointmentBean> viewPatientsByDate(java.sql.Date appointmentDate) {
+		ArrayList<PatientBean> pbl = PatientDAO.getPatients(appointmentDate);
+		Map<PatientBean, AppointmentBean> map= new HashMap<>();
+		for(PatientBean pb : pbl) {
+			map.put(pb, AppointmentsDAO.viewAppointment(pb.getPatientID(), appointmentDate));
+		}
+		return map;
 	}
 }

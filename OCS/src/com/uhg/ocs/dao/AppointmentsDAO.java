@@ -1,6 +1,7 @@
 package com.uhg.ocs.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -73,6 +74,24 @@ public class AppointmentsDAO {
 		return status;
 	}
 	
-	
+	public static AppointmentBean viewAppointment(String patientID, Date date) {
+		AppointmentBean ab = null;
+		try {
+			Connection con = DBUtil.getDBConnection();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM OCS_TBL_APPOINTMENTS WHERE PATIENTID = ? AND APPOINTMENT_DATE = ?");
+			ps.setString(1, patientID);
+			ps.setDate(2, date);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				ab = new AppointmentBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getInt(6));
+			}
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return ab;
+	}
 	
 }
