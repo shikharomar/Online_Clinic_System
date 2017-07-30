@@ -3,6 +3,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@page import="com.uhg.ocs.service.Administrator"%>
+<%@page import="com.uhg.ocs.util.User"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,15 +15,15 @@
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
 	<%
-		if (user.getUserID() == null) {
+		if (user.getUserID() == null || !User.login(user).equals("A")) {
 			response.sendRedirect("ErrorPage.jsp");
 		}
 	%>
 	<div class="container-fluid" style="background-color: #D3D3D3;">
 		<div class="row">
 			<div class="col-sm-3"></div>
-			<div class="col-sm-5"><jsp:getProperty property="userID"
-					name="user" /></div>
+			<div class="col-sm-5"><a href="ChangePasswordForm.jsp"><jsp:getProperty property="userID"
+					name="user" /></a></div>
 			<div class="col-sm-2">
 				<a href="AdminHome.jsp">Home</a>
 			</div>

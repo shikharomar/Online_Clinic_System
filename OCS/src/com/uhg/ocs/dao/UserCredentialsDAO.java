@@ -40,6 +40,24 @@ public class UserCredentialsDAO {
 		return status;
 	}
 	
+	public static Boolean updatePassword(String userID, String password) {
+		Boolean status = Boolean.FALSE;
+		try {
+			Connection con = DBUtil.getDBConnection();
+			PreparedStatement ps = con.prepareStatement("UPDATE OCS_TBL_USER_CREDENTIALS SET PASSWORD = ? WHERE USERID = ?");
+			ps.setString(1, password);
+			ps.setString(2, userID);
+			if(ps.executeUpdate() > 0)
+				status = Boolean.TRUE;
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
 	public static Boolean updateLoginStatus(CredentialsBean cb){
 		Boolean status = Boolean.FALSE;
 		try {

@@ -26,4 +26,13 @@ public class User {
 		UserProfileDAO.insertUserProfile(pb);
 		return userID;
 	}
+	
+	public static String changePassword(String userID, String password) {
+		String status = null;
+		if(UserCredentialsDAO.updatePassword(userID, password))
+			status = "SUCCESS";
+		else
+			status = "FAIL";
+		return status;
+	}
 }

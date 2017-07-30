@@ -1,31 +1,35 @@
-<%@page import="com.uhg.ocs.dao.AppointmentsDAO"%>
+<%@page import="com.uhg.ocs.util.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="HeadFootMaster.html"%>
-<%@ include file="AdminMaster.html"%>
-<%@page import="com.uhg.ocs.util.User"%>
+<%@ include file="PatientMaster.html"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Home</title>
 <link rel="stylesheet" href="style.css">
-<title>Rejected Appointment</title>
 </head>
 <body>
+
+
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
+
 	<%
-		if (user.getUserID() == null || !User.login(user).equals("A")) {
+		if(user.getUserID() == null){
 			response.sendRedirect("ErrorPage.jsp");
 		}
 	%>
+
 	<div class="container-fluid" style="background-color: #D3D3D3;">
 		<div class="row">
 			<div class="col-sm-3"></div>
-			<div class="col-sm-5"><a href="ChangePasswordForm.jsp"><jsp:getProperty property="userID"
+			<div class="col-sm-5"><a href="UpdatePassword.jsp"><jsp:getProperty property="userID"
 					name="user" /></a></div>
 			<div class="col-sm-2">
-				<a href="AdminHome.jsp">Home</a>
+				<a href="PatientHome.jsp">Home</a>
 			</div>
 			<div class="col-sm-2">
 				<a href="logout.jsp">Logout</a>
@@ -34,24 +38,19 @@
 	</div>
 
 	<%
-		String mes;
-		if(AppointmentsDAO.changeAppStatus(request.getParameter("appointmentID"), -1)){
-			mes = "rejected patient appointment";
-		}
-		else{
-			mes = "Cannot reject patient appointment";
-		}
+		String mes = User.changePassword(user.getUserID(), request.getParameter("password"));
 	%>
 
 	<div class="row" style="padding-left: 140px;">
+
 		<div class="col-sm-10">
 			<div class="container">
-				<h3><%=mes %></h3>
+				<h3>Update Password :<%=mes %> </h3>
 				<br>
-				<p>please wait while we take you back............</p>
+				<p>please wait while we take you back.........</p>
 			</div>
 		</div>
 	</div>
-	<% response.setHeader("Refresh", "3;url=PatientsRequests.jsp"); %>
+	<% response.setHeader("Refresh", "3;url=PChangePasswordForm.jsp"); %>
 </body>
 </html>
