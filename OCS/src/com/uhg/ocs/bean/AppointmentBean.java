@@ -10,8 +10,16 @@ public class AppointmentBean {
 	private String patientID;
 	private String stringAppointmentDate;
 	private Date appointmentDate;
-	private String appointmentTime;
 	private int status;
+	private int slotnumber;
+	
+	public int getSlotnumber() {
+		return slotnumber;
+	}
+
+	public void setSlotnumber(int slotnumber) {
+		this.slotnumber = slotnumber;
+	}
 
 	public int getStatus() {
 		return status;
@@ -71,33 +79,25 @@ public class AppointmentBean {
 	public void setAppointmentDate(Date appointmentDate) {
 		this.appointmentDate = appointmentDate;
 	}
-
-	public String getAppointmentTime() {
-		return appointmentTime;
-	}
-
-	public void setAppointmentTime(String appointmentTime) {
-		this.appointmentTime = appointmentTime;
-	}
-
+	
 	public AppointmentBean(String appointmentID, String doctorID, String patientID, Date appointmentDate,
-			String appointmentTime) {
+			int slotnumber) {
 		super();
 		this.appointmentID = appointmentID;
 		this.doctorID = doctorID;
 		this.patientID = patientID;
 		this.appointmentDate = appointmentDate;
-		this.appointmentTime = appointmentTime;
+		this.slotnumber = slotnumber;
 	}
 
 	public AppointmentBean(String appointmentID, String doctorID, String patientID, Date appointmentDate,
-			String appointmentTime, int status) {
+			int slotnumber, int status) {
 		super();
 		this.appointmentID = appointmentID;
 		this.doctorID = doctorID;
 		this.patientID = patientID;
 		this.appointmentDate = appointmentDate;
-		this.appointmentTime = appointmentTime;
+		this.slotnumber = slotnumber;
 		this.status = status;
 	}
 

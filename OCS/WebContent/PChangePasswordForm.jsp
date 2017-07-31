@@ -74,7 +74,7 @@
 					<label class="control-label">New Password</label>
 				</div>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" name="password" placeholder="New password">
+					<input type="text" class="form-control" name="password" placeholder="New password" required>
 				</div>
 			</div>
 			<div class="row">
@@ -91,7 +91,7 @@
 	</div>
 	<script>
 		$("#adminCancelButton").click(function() {
-			document.location.href = 'http://localhost:8080/OCS/PatientHome.jsp';
+			document.location.href = 'http://localhost:8082/OCS/PatientHome.jsp';
 		});
 	</script>
 </body>

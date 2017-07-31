@@ -20,7 +20,7 @@
 		scope="session"></jsp:useBean>
 
 	<%
-		if(user.getUserID() == null || !User.login(user).equals("A")){
+		if(user.getUserID() == null){
 			response.sendRedirect("ErrorPage.jsp");
 		}
 	%>
@@ -75,7 +75,7 @@
 					<label class="control-label">New Password</label>
 				</div>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" name="password" placeholder="New password">
+					<input type="text" class="form-control" name="password" placeholder="New password" required>
 				</div>
 			</div>
 			<div class="row">
@@ -92,7 +92,7 @@
 	</div>
 	<script>
 		$("#adminCancelButton").click(function() {
-			document.location.href = 'http://localhost:8080/OCS/AdminHome.jsp';
+			document.location.href = 'http://localhost:8082/OCS/AdminHome.jsp';
 		});
 	</script>
 </body>

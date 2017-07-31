@@ -24,7 +24,7 @@ public class AppointmentsDAO {
 			ps.setInt(4, 0);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				AppointmentBean ab = new AppointmentBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5));
+				AppointmentBean ab = new AppointmentBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5));
 				abl.add(ab);
 			}
 			ps.close();
@@ -44,7 +44,7 @@ public class AppointmentsDAO {
 			ps.setInt(1, 0);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				AppointmentBean ab = new AppointmentBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5));
+				AppointmentBean ab = new AppointmentBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5));
 				abl.add(ab);
 			}
 			ps.close();
@@ -83,7 +83,7 @@ public class AppointmentsDAO {
 			ps.setDate(2, date);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				ab = new AppointmentBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getInt(6));
+				ab = new AppointmentBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5), rs.getInt(6));
 			}
 			ps.close();
 			con.close();

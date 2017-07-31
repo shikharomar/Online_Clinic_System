@@ -49,11 +49,6 @@
 						<input type="submit" class="btn btn-primary" value="login" />
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm-4">
-						<a href="pwdrecover.jsp">forgot password?</a>
-					</div>
-				</div>
 			</form>
 			<div class="row">
 				<br>

@@ -46,7 +46,7 @@
 						placeholder="Date of Birth">
 				</div>
 			</div>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-sm-4 alr">
 					<label class="control-label">Gender</label>
 				</div>
@@ -54,7 +54,17 @@
 					<input type="text" class="form-control" name="gender"
 						placeholder="Gender">
 				</div>
-			</div>
+			</div> -->
+			<div class="row" style="padding: 5px 0px 5px 0px;">
+                 <div class="col-md-3"></div>
+                 <div class="form-group">
+                     <label class="col-sm-1 control-label alr" for="gender">Gender:</label>
+                     <div class="col-sm-6">
+                         <label class="radio-inline"><input type="radio" name="gender" value="male">male</label>
+                         <label class="radio-inline"><input type="radio" name="gender" value="female">female</label>
+                     </div>
+                 </div>
+             </div>
 			<div class="row">
 				<div class="col-sm-4 alr">
 					<label class="control-label">Street</label>

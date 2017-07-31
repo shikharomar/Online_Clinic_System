@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-5"><a href="ChangePasswordForm.jsp"><jsp:getProperty property="userID"
-					name="user" /></a></a></div>
+					name="user" /></a></div>
 			<div class="col-sm-2">
 				<a href="AdminHome.jsp">Home</a>
 			</div>

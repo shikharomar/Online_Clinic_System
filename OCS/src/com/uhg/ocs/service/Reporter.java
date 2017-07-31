@@ -1,80 +1,48 @@
 package com.uhg.ocs.service;
+
+import com.uhg.ocs.dao.*;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.uhg.ocs.bean.*;
+import com.uhg.ocs.dao.ReporterDao;
 import com.uhg.ocs.util.DBUtil;
+
 public class Reporter {
-	public ArrayList<DoctorBean> viewAllAvailableDoctors(Date date) throws Exception
-	{
-		ArrayList<DoctorBean> arr = null;
-		Connection con= DBUtil.getDBConnection() ;
-		PreparedStatement ps = con.prepareStatement("select * from OCS_TBL_DOCTOR " + 
-				"where DOCTORID NOT IN " + 
-				"(" + 
-				"select DOCTORID " + 
-				"from OCS_TBL_LEAVE " + 
-				"where LEAVE_FROM <= TO_DATE(?) and LEAVE_TO>= TO_DATE(?) " + 
-				")");
-		ps.setString(1,date.toString());
-		ps.setString(2,date.toString());	
+	public static ArrayList<DoctorBean> viewAllAvailableDoctors(String date) throws Exception {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date d = dateFormat.parse(date);
+		int month = d.getMonth();
+		int year = d.getYear();
+		int day = d.getDate();
+		java.sql.Date sqld = new java.sql.Date(year,month,day);
+		//new java.sql.Date
 		
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			DoctorBean doc = new DoctorBean();
-			doc.setDoctorID(rs.getString("DOCTORID"));
-			doc.setCity(rs.getString("CITY"));
-			doc.setContactNumber(rs.getString("CONTACTNUMBER"));
-			doc.setDateOfBirth(rs.getDate("DATEOFBIRTH"));
-			doc.setDateOfJoining(rs.getDate("DATEOFJOINING"));
-			doc.setDoctorName(rs.getString("DOCTORNAME"));
-			doc.setEmailID(rs.getString("EMAILID"));
-			doc.setGender(rs.getString("GENDER"));
-			doc.setLocation(rs.getString("LOCATION"));
-			doc.setPincode(rs.getString("DOCTORID"));
-			doc.setQualification(rs.getString("QUALIFICATION"));
-			doc.setSpecialization(rs.getString("SPECIALIZATION"));
-			doc.setState(rs.getString("STATE"));
-			doc.setStreet(rs.getString("STREET"));
-			doc.setYearsOfExperience(rs.getInt("YEARSOFEXPERIENCE"));
-			arr.add(doc);
+		ArrayList<DoctorBean> arr = null;
+		arr = (ReporterDao.viewAllAvailableDoctors(sqld));
+		if (arr == null) {
+			System.out.println("Failed in fetching the data !");
 		}
+
 		return arr;
 	}
-	public ArrayList<DoctorBean> intimateAdmin(Date date) throws Exception
-	{
+
+	public static ArrayList<DoctorBean> intimateAdmin(String date )throws Exception {
 		ArrayList<DoctorBean> arr = null;
-		Connection con= DBUtil.getDBConnection() ;
-		PreparedStatement ps = con.prepareStatement("select * from OCS_TBL_DOCTOR " + 
-				"where DOCTORID NOT IN " + 
-				"(" + 
-				"select DOCTORID " + 
-				"from OCS_TBL_LEAVE " + 
-				"where LEAVE_FROM <= TO_DATE(?) and LEAVE_TO>= TO_DATE(?) and STATUS=1 " + 
-				")");
-		ps.setString(1,date.toString());
-		ps.setString(2,date.toString());	
-		
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
-			DoctorBean doc = new DoctorBean();
-			doc.setDoctorID(rs.getString("DOCTORID"));
-			doc.setCity(rs.getString("CITY"));
-			doc.setContactNumber(rs.getString("CONTACTNUMBER"));
-			doc.setDateOfBirth(rs.getDate("DATEOFBIRTH"));
-			doc.setDateOfJoining(rs.getDate("DATEOFJOINING"));
-			doc.setDoctorName(rs.getString("DOCTORNAME"));
-			doc.setEmailID(rs.getString("EMAILID"));
-			doc.setGender(rs.getString("GENDER"));
-			doc.setLocation(rs.getString("LOCATION"));
-			doc.setPincode(rs.getString("DOCTORID"));
-			doc.setQualification(rs.getString("QUALIFICATION"));
-			doc.setSpecialization(rs.getString("SPECIALIZATION"));
-			doc.setState(rs.getString("STATE"));
-			doc.setStreet(rs.getString("STREET"));
-			doc.setYearsOfExperience(rs.getInt("YEARSOFEXPERIENCE"));
-			arr.add(doc);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date d = dateFormat.parse(date);
+		int month = d.getMonth();
+		int year = d.getYear();
+		int day = d.getDate();
+		java.sql.Date sqld = new java.sql.Date(year, month, day);
+
+		arr = (ReporterDao.intimateAdmin(sqld));
+		if (arr == null) {
+			System.out.println("Failed in fetching the data !");
 		}
+
 		return arr;
 	}
 }

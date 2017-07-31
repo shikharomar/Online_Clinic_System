@@ -1,24 +1,68 @@
 package com.uhg.ocs.service;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import com.uhg.ocs.dao.*;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import com.uhg.ocs.bean.*;
-import com.uhg.ocs.util.*;
+import com.uhg.ocs.dao.*;
 
 public class Patient {
-	public static String addAilmentDetails(PatientBean patientBean) throws Exception{
-		
-		Connection con = DBUtil.getDBConnection();
-		PatientBean pb = patientBean;
-		String sql = "insert into OCS_TBL_Patient (PATIENTID,USERID,AILMENT_TYPE,AILMENT_DETAILS,DIAGNOSIS_HISTORY, APPOINTMENT_DATE) values ('"+pb.getPatientID()+"', '"+pb.getUserID()+"', '"+pb.getAilmentType()+"', '"+pb.getAilmentDetails()+"', '"+pb.getDiagnosisHistory()+"', '"+pb.getAppointmentDate()+"')";
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(sql);
-		if(rs.next()){
-			return "Ailment Details Added Successfuly!";
-		}else{
-			return "Ailment Details Adding Unsuccessful!";
-		}		
+	public static String addAilmentDetails(PatientBean patientBean) throws Exception {
+		if (PatientDAO.addAilmentDetails(patientBean) >0 ) {
+			return "Ailment Details Added Successfully! SUCCESS";
+		} else {
+			return "Adding Ailment Details Unsuccessful! FAIL";
+		}
+	}
+
+	public static boolean modifyAilmentDetails(PatientBean patientBean) throws Exception {
+		if (PatientDAO.modifyAilmentDetails(patientBean)) {
+			// return "Ailment Details Modified Successfully! SUCCESS";
+			return true;
+		} else {
+			// return "Modifying Ailment Details Unsuccessful! FAIL";
+			return false;
+		}
+	}
+
+	public static PatientBean viewailmentdetails(String patientID) throws Exception {
+		System.out.println("Inside patient.java");
+		return PatientDAO.getPatientBean(patientID);
+	}
+	public static AppointmentBean viewappointmentdetails(String Patientid) throws Exception
+	{
+		return PatientDAO.viewappointmentdetails(Patientid);
+	}
+	public static ArrayList<DoctorBean> viewListOfDoctors(String specialization, String date) throws Exception {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		java.sql.Date sqld = null;
+		try {
+			java.util.Date d = dateFormat.parse(date);
+			int month = d.getMonth();
+			int year = d.getYear();
+			int day = d.getDate();
+			sqld = new java.sql.Date(year, month, day);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return PatientDAO.viewListOfDoctors(specialization, sqld);
+	}
+	public static int requestforAppointment(String doctorID,String patientID, String appointmentDate) throws Exception
+	{
+		System.out.println("Inside the request for appointment ");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date d = dateFormat.parse(appointmentDate);
+		int month = d.getMonth();
+		int year = d.getYear();
+		int day = d.getDate();
+		java.sql.Date sqld = new java.sql.Date(year, month, day);
+		int status= PatientDAO.requestforAppointment(doctorID,patientID,sqld);
+		return status ;
 	}
 }
