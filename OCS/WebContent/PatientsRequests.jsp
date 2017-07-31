@@ -1,3 +1,4 @@
+<%@page import="com.uhg.ocs.dao.SlotsDAO"%>
 <%@page import="com.uhg.ocs.dao.LeaveDAO"%>
 <%@page import="com.uhg.ocs.dao.DoctorDAO"%>
 <%@page import="com.uhg.ocs.bean.DoctorBean"%>
@@ -70,7 +71,7 @@
 								PatientBean pb = PatientDAO.viewPatient(ab.getPatientID());
 								ProfileBean prb = UserProfileDAO.getUserProfile(pb.getUserID());
 								DoctorBean db = DoctorDAO.getDoctor(ab.getDoctorID());
-								if(LeaveDAO.checkLeave(ab.getDoctorID(), ab.getAppointmentDate())){
+								if(LeaveDAO.checkLeave(ab.getDoctorID(), ab.getAppointmentDate()) || SlotsDAO.getslotnumber() == 0){
 									status = "Not-available";
 								}
 								else{

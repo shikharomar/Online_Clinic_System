@@ -94,4 +94,76 @@ public class AppointmentsDAO {
 		return ab;
 	}
 	
+	public static AppointmentBean viewappointmentdetails(String patientid) throws Exception {
+		Connection con = DBUtil.getDBConnection();
+		
+		PreparedStatement ps = con.prepareStatement("select * from OCS_TBL_APPOINTMENTS where PATIENTID = ? ");
+		ps.setString(1,patientid);
+		ResultSet rs = ps.executeQuery();
+		AppointmentBean app = new AppointmentBean();
+		
+		if(rs.next())
+		{
+			app.setAppointmentID(rs.getString("APPOINTMENTID"));
+			app.setDoctorID(rs.getString("DOCTORID"));
+			app.setPatientID(rs.getString("PATIENTID"));
+			app.setAppointmentDate(rs.getDate("APPOINTMENT_DATE"));
+			app.setStatus(rs.getInt("STATUS"));
+			app.setSlotnumber(rs.getInt("SLOTNUMBER"));
+			
+		System.out.println("This is after viewAppointments");
+		return app;
+		}
+		return app;	
+	}
+	
+	public static int requestforAppointment(String doctorID, String patientID, Date appointmentDate) throws Exception {
+		Connection con = DBUtil.getDBConnection();
+		int status = 0;
+		int slotintnumber=SlotsDAO.getslotnumber();
+		PreparedStatement ps = con.prepareStatement("select * from OCS_TBL_APPOINTMENTS where PATIENTID = ? ");
+		ps.setString(1,patientID);
+		ResultSet rs=ps.executeQuery();
+		if(!rs.next())
+		{
+	    PreparedStatement stmt2=con.prepareStatement("insert into OCS_TBL_APPOINTMENTS (DOCTORID,PATIENTID,APPOINTMENT_DATE,SLOTNUMBER,status) VALUES(?,?,?,?,?)");  
+	    stmt2.setString(1,doctorID);  
+	    stmt2.setString(2,patientID);  
+	    stmt2.setDate(3,appointmentDate);  
+	    stmt2.setInt(4,slotintnumber);  
+	    stmt2.setInt(5,0);  
+	    if(stmt2.executeUpdate() > 0)
+	    	status = 0;
+		}
+		else
+		{
+			PreparedStatement stmt=con.prepareStatement("UPDATE OCS_TBL_APPOINTMENTS SET DOCTORID = ?,APPOINTMENT_DATE= ?,SLOTNUMBER = ?,status = ? WHERE PATIENTID = ?");  
+			 stmt.setString(1,doctorID);  
+			   stmt.setDate(2,appointmentDate);  
+			   stmt.setInt(3,slotintnumber);  
+			   stmt.setInt(4,0);  
+			   stmt.setString(5,patientID);
+			   if(stmt.executeUpdate() > 0)
+				   status = 0;
+		}
+	    return status;		
+	}
+	
+	public static int getSlotNumber(String appointmentID) {
+		int slotnum = 0;
+		try {
+			Connection con = DBUtil.getDBConnection();
+			PreparedStatement ps = con.prepareStatement("SELECT SLOTNUMBER FROM OCS_TBL_APPOINTMENTS WHERE APPOINTMENTID = ?");
+			ps.setString(1, appointmentID);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+				slotnum = rs.getInt(1);
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return slotnum;
+	}
 }

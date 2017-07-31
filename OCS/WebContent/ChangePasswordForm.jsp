@@ -85,15 +85,10 @@
 				</div>
 				<div class="col-sm-1">
 					<button type="button" id="adminCancelButton"
-						class="btn btn-warning">cancel</button>
+						class="btn btn-warning" action="action" onclick="window.history.go(-1); return false;">cancel</button>
 				</div>
 			</div>
 		</form>
 	</div>
-	<script>
-		$("#adminCancelButton").click(function() {
-			document.location.href = 'http://localhost:8082/OCS/AdminHome.jsp';
-		});
-	</script>
 </body>
 </html>

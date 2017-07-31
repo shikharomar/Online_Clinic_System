@@ -18,7 +18,7 @@
 		scope="session"></jsp:useBean>
 
 	<%
-		if(user.getUserID() == null){
+		if(user.getUserID() == null || !User.login(user).equals("P")){
 			response.sendRedirect("ErrorPage.jsp");
 		}
 	%>

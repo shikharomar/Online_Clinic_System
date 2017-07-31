@@ -13,15 +13,18 @@ import com.uhg.ocs.util.DBUtil;
 public class Reporter {
 	public static ArrayList<DoctorBean> viewAllAvailableDoctors(String date) throws Exception {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date d = dateFormat.parse(date);
-		int month = d.getMonth();
-		int year = d.getYear();
-		int day = d.getDate();
-		java.sql.Date sqld = new java.sql.Date(year,month,day);
+		java.sql.Date sqld = null;
+		try {
+			java.util.Date d = dateFormat.parse(date);
+			int month = d.getMonth();
+			int year = d.getYear();
+			int day = d.getDate();
+			sqld = new java.sql.Date(year,month,day);
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		}
 		//new java.sql.Date
-		
-		ArrayList<DoctorBean> arr = null;
-		arr = (ReporterDao.viewAllAvailableDoctors(sqld));
+		ArrayList<DoctorBean> arr = ReporterDao.viewAllAvailableDoctors(sqld);
 		if (arr == null) {
 			System.out.println("Failed in fetching the data !");
 		}

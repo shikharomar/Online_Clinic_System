@@ -14,12 +14,11 @@ public class ReporterDao {
 	{
 		ArrayList<DoctorBean> arr = new ArrayList<DoctorBean>();
 		Connection con= DBUtil.getDBConnection() ;
-		System.out.println("Date to String:"+date.toString());
 		PreparedStatement ps = con.prepareStatement("select * from OCS_TBL_DOCTOR where DOCTORID NOT IN ( select DOCTORID from OCS_TBL_LEAVE " + 
-				"where LEAVE_FROM <= TO_DATE(?,'YYYY/MM/DD') and LEAVE_TO >= TO_DATE(?,'YYYY/MM/DD'))"); 
+				"where LEAVE_FROM <= ? and LEAVE_TO >= ?)"); 
 		
-		ps.setString(1,date.toString());
-		ps.setString(2,date.toString());	
+		ps.setDate(1,date);
+		ps.setDate(2,date);	
 		
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {

@@ -1,3 +1,4 @@
+<%@page import="com.uhg.ocs.dao.SlotsDAO"%>
 <%@page import="com.uhg.ocs.dao.AppointmentsDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -35,7 +36,8 @@
 
 	<%
 		String mes;
-		if(AppointmentsDAO.changeAppStatus(request.getParameter("appointmentID"), -1)){
+		int slotnum = AppointmentsDAO.getSlotNumber(request.getParameter("appointmentID"));
+		if(AppointmentsDAO.changeAppStatus(request.getParameter("appointmentID"), -1) && SlotsDAO.updateStatus(slotnum, 0)){
 			mes = "rejected patient appointment";
 		}
 		else{

@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="HeadFootMaster.html"%>
 <%@ include file="PatientMaster.html"%>
+<%@page import="com.uhg.ocs.util.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,11 @@
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
 
-
+	<%
+		if(user.getUserID() == null || !User.login(user).equals("P")){
+			response.sendRedirect("ErrorPage.jsp");
+		}
+	%>
 	<div class="container-fluid" style="background-color: #D3D3D3;">
 		<div class="row">
 			<div class="col-sm-3"></div>

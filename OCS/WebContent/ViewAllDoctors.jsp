@@ -18,7 +18,7 @@
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
 	<%
-		if (user.getUserID() == null || !User.login(user).equals("A")) {
+		if(user.getUserID() == null || !User.login(user).equals("P")){
 			response.sendRedirect("ErrorPage.jsp");
 		}
 	%>

@@ -50,19 +50,21 @@ public class Patient {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-
 		return PatientDAO.viewListOfDoctors(specialization, sqld);
 	}
 	public static int requestforAppointment(String doctorID,String patientID, String appointmentDate) throws Exception
 	{
-		System.out.println("Inside the request for appointment ");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date d = dateFormat.parse(appointmentDate);
-		int month = d.getMonth();
-		int year = d.getYear();
-		int day = d.getDate();
-		java.sql.Date sqld = new java.sql.Date(year, month, day);
-		int status= PatientDAO.requestforAppointment(doctorID,patientID,sqld);
-		return status ;
+		java.sql.Date sqld = null;
+		try {
+			java.util.Date d = dateFormat.parse(appointmentDate);
+			int month = d.getMonth();
+			int year = d.getYear();
+			int day = d.getDate();
+			sqld = new java.sql.Date(year, month, day);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return PatientDAO.requestforAppointment(doctorID,patientID,sqld);
 	}
 }

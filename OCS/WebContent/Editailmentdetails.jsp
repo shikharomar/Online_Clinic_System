@@ -4,6 +4,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="HeadFootMaster.html"%>
 <%@ include file="PatientMaster.html"%>
+<%@page import="com.uhg.ocs.util.User" %>
 <%@ page
 	import="com.uhg.ocs.dao.PatientDAO,com.uhg.ocs.bean.*,java.util.*,com.uhg.ocs.service.Patient,com.uhg.ocs.service.Reporter"%>
 
@@ -19,6 +20,13 @@
 
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
+
+	<%
+		if (user.getUserID() == null || !User.login(user).equals("P")) {
+			response.sendRedirect("ErrorPage.jsp");
+		}
+	%>
+
 
 	<%
 		String patientid = PatientDAO.getpatientID(user.getUserID());
@@ -44,17 +52,18 @@
 	<div style="padding-left: 150px;">
 		<h3 style="text-align: center;">Edit Ailment details</h3>
 		<form action="modifyailmentdetails.jsp" method="POST">
-		
+
 			<input type="hidden" name="patientID" value="<%=pat.getPatientID()%>">
 			<input type="hidden" name="userID" value="<%=user.getUserID()%>">
-			
+
 			<div class="row">
 				<div class="col-sm-4 alr">
 					<label class="control-label">Enter ailment type</label>
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="ailmentType"
-						placeholder="Enter ailment Type" value="<%=pat.getAilmentType()%>" required>
+						placeholder="Enter ailment Type" value="<%=pat.getAilmentType()%>"
+						required>
 				</div>
 			</div>
 			<div class="row">
@@ -63,7 +72,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" name="ailmentDetails"
-						placeholder="Enter ailment Details" value="<%=pat.getAilmentDetails()%>" required>
+						placeholder="Enter ailment Details"
+						value="<%=pat.getAilmentDetails()%>" required>
 				</div>
 			</div>
 			<div class="row">
@@ -72,7 +82,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="date" class="form-control"
-						name="stringAppointmentDate" value="<%=pat.getAppointmentDate()%>" required>
+						name="stringAppointmentDate" value="<%=pat.getAppointmentDate()%>"
+						required>
 				</div>
 			</div>
 			<div class="row">

@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="HeadFootMaster.html"%>
 <%@ include file="PatientMaster.html"%>
+<%@page import="com.uhg.ocs.util.User" %>
 <%@ page
 	import="com.uhg.ocs.bean.DoctorBean,java.util.*,com.uhg.ocs.service.Reporter,com.uhg.ocs.service.Patient"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -19,7 +20,7 @@
 		scope="session"></jsp:useBean>
 
 	<%
-		if (user.getUserID() == null) {
+		if(user.getUserID() == null || !User.login(user).equals("P")){
 			response.sendRedirect("ErrorPage.jsp");
 		}
 	%>
@@ -60,12 +61,12 @@
 							<select name="special">
 								<option value="">Select</option>
 								<option value="ENT">ENT</option>
-								<option value="BRAIN">BRAIN</option>
+								<option value="brain">BRAIN</option>
 								<option value="KIDNEY">KIDNEY</option>
 								<option value="LIMBS">LIMBS</option>
 								<option value="BONES">BONES</option>
 								<option value="CHILD">CHILD</option>
-								<option value="HEART">HAERT</option>
+								<option value="heart">HEART</option>
 								<option value="STOMACH">STOMACH</option>
 								<option value="MENTAL">MENTAL</option>
 								<option value="TEETH">TEETH</option>
@@ -103,8 +104,8 @@
 							for (DoctorBean doc : list) {
 						%>
 						<tr>
-							<td><%=doc.getDoctorName()%>></td>
-							<td><%=doc.getGender()%>></td>
+							<td><%=doc.getDoctorName()%></td>
+							<td><%=doc.getGender()%></td>
 							<td><%=doc.getQualification()%></td>
 							<td><%=doc.getYearsOfExperience()%></td>
 							<td><%=doc.getEmailID()%></td>

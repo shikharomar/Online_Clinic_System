@@ -4,6 +4,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="HeadFootMaster.html"%>
 <%@ include file="PatientMaster.html"%>
+<%@page import="com.uhg.ocs.util.User" %>
+
 <%@ page
 	import="com.uhg.ocs.dao.PatientDAO,com.uhg.ocs.bean.*,java.util.*,com.uhg.ocs.service.Patient,com.uhg.ocs.service.Reporter"%>
 
@@ -19,7 +21,11 @@
 
 	<jsp:useBean id="user" class="com.uhg.ocs.bean.CredentialsBean"
 		scope="session"></jsp:useBean>
-
+	<%
+		if(user.getUserID() == null || !User.login(user).equals("P")){
+			response.sendRedirect("ErrorPage.jsp");
+		}
+	%>
 	<jsp:useBean id="upPatBean" class="com.uhg.ocs.bean.PatientBean"></jsp:useBean>
 	<jsp:setProperty property="*" name="upPatBean" />
 

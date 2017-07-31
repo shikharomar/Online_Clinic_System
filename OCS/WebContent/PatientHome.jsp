@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="HeadFootMaster.html"%>
 <%@ include file="PatientMaster.html"%>
+<%@page import="com.uhg.ocs.util.User" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,7 +18,7 @@
 		scope="session"></jsp:useBean>
 
 	<%
-		if(user.getUserID() == null){
+		if(user.getUserID() == null || !User.login(user).equals("P")){
 			response.sendRedirect("ErrorPage.jsp");
 		}
 	%>
