@@ -46,7 +46,7 @@ public class CredentialsBean {
 	public void setLoginStatus(int loginStatus) {
 		this.loginStatus = loginStatus;
 	}
-	public CredentialsBean(String userID, String password, String userType, int loginStatus, String userName ) {
+	public CredentialsBean(String userID, String userName, String password, String userType, int loginStatus ) {
 		super();
 		this.userID = userID;
 		this.password = password;
